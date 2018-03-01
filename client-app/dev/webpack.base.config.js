@@ -38,7 +38,10 @@ module.exports = (env) => {
           use: ExtractTextPlugin.extract({
             fallback: 'style-loader',
             use: [
-              { loader: 'css-loader', options: { sourceMap: true } },
+              { loader: 'css-loader', options: { 
+            	  importLoaders: 2 // 0 => no loaders (default); 1 => postcss-loader; 2 => postcss-loader, sass-loader 
+            	 } 
+              },
               { loader: 'postcss-loader', options: { sourceMap: true } },
               { loader: 'resolve-url-loader' },
               { loader: 'less-loader',
