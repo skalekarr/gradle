@@ -1,4 +1,4 @@
-rootProject.name = 'ClaimsWebInterface'
+rootProject.name = 'ClaimsUIFrontEnd'
 
 include 'client-app'
 include 'server'
