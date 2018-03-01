@@ -1,0 +1,58 @@
+plugins {
+    id 'com.moowork.node' version '1.1.1'
+}
+
+allprojects {
+    apply plugin: 'idea'
+    group = 'com.mutualofomaha.abc'
+}
+
+// CIP-required plugins
+apply plugin: 'com.mutualofomaha.jenkins-conventions'
+apply plugin: 'com.mutualofomaha.sca-conventions'
+apply plugin: 'com.mutualofomaha.artifactory-conventions'
+
+apply from: "./gradle/tasks/sonarqube.gradle"
+
+description = """Claims UI"""
+
+// For Bitbucket only - define tasks that will run whenever a pull request is made
+// Runs tests for both the client-app and the client-proxy
+project.tasks.create(name: 'pullRequestTests', dependsOn: [':client-proxy:test', ':client-app:jest'])
+project.tasks.create(name: 'pullRequestValidation', dependsOn: ['rewriteUnitTestReport', 'rewriteCoveragePaths', 'pullRequestTests']) {
+    mustRunAfter 'pullRequestTests'
+    finalizedBy 'pullRequestComments'
+}
+
+pipelineConfig {
+    asi = 'UAL'
+    projectName = 'ClaimsWebInterface'
+    selectedJdk = 'Java SE JDK 8'
+
+
+    // Bitbucket only - remove if using Subversion
+    nestedFolders = true
+    pullRequestTask = 'pullRequestValidation'
+
+    createPipeline {
+        initJob()
+        buildAndUnitTestJob([
+            gradleTasks: 'jest rewriteUnitTestReport rewriteCoveragePaths test cloverGenerateReport'
+        ])
+        staticCodeAnalysisJob([
+            sonarOnly: true,
+            gradleSwitches: '--stacktrace -x test -x processResources --continue'
+        ])
+        publishSnapshotJob()
+        promoteToReleaseCandidateJob([
+            sonarOnly: true
+        ])
+    }
+}
+
+clean.delete << file('client-app/.jest')
+clean.delete << file('client-app/npm-debug.log')
+clean.delete << file("client-app/node_modules")
+clean.delete << file("client-proxy/src/main/webapp/assets")
+clean.delete << file("client-proxy/src/main/webapp/index.html")
+
