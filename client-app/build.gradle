@@ -1,4 +1,4 @@
-description "react starter UI"
+description "Claims UI"
 
 apply plugin: 'com.moowork.node'
 
