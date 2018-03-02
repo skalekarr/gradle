@@ -1,0 +1,12 @@
+spring:
+  profiles:
+    active: ${WAS_ENV:Unit}
+
+zuul:
+  ignoredPatterns: /assets/**
+  host:
+    socket-timeout-millis: 30000
+
+ribbon:
+  eureka:
+    enabled: false

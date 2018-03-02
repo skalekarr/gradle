@@ -1,0 +1,69 @@
+buildscript {
+    ext {
+        springBootVersion = "1.5.2.RELEASE"
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+def isLocalDev = null == System.getenv('JENKINS_URL')
+
+// plugins to support CI Build Pipeline
+apply plugin: 'com.mutualofomaha.war-conventions'
+apply plugin: 'com.mutualofomaha.groovy-conventions'
+
+// plugins to support creating a Spring Boot app in Groovy
+apply plugin: 'org.springframework.boot'
+apply plugin: 'groovy'
+
+description 'The Zuul proxy for the React starter app'
+
+artifactoryPublish { skip = false }
+
+project.sourceCompatibility = 1.8
+project.targetCompatibility = 1.8
+
+configurations {
+    providedRuntime
+}
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('org.springframework.boot:spring-boot-starter-actuator')
+    compile("org.springframework.boot:spring-boot-devtools")
+    compile('org.codehaus.groovy:groovy-all:2.4.11')
+
+    // Netflix Zuul proxy config
+    compile "org.springframework.cloud:spring-cloud-starter-zuul:1.3.0.RELEASE"
+    compile "io.jmnarloch:zuul-route-health-spring-cloud-starter:1.1.0"
+
+    if (!isLocalDev) {
+        providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
+    }
+
+    // AMUI Integration
+	compile('com.mutualofomaha.esc:AcctAuthMgmtSPFilter-starter:1.2.57')
+
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testCompile "org.spockframework:spock-core:1.1-groovy-2.4"
+    testCompile "org.spockframework:spock-spring:1.1-groovy-2.4"
+    testCompile "cglib:cglib:3.2.2"
+}
+
+if (!isLocalDev) {
+    processResources.dependsOn ':client-app:yarn_build'
+}
+
+sonarqube {
+    properties {
+        // Sonar uses file types in sources to determine which code instrumentation tools to apply
+        property "sonar.sources", ["src/main/groovy"]
+        property "sonar.tests", ["src/test"]
+        property "sonar.test.inclusions", [
+                "src/test/**/*Spec.groovy",
+                "src/test/**/*Test.groovy"
+        ]
+        property "sonar.exclusions", ["src/main/webapp"]
+    }
+}
