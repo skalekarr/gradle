@@ -3,7 +3,7 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 
 import Header from '../header/header';
 import Footer from '../footer/footer';
-import PolicyLookup from '../containers/AppRoot/index';
+import PolicyLookup from '../containers/PolicyLookUp/index';
 
 const RootRoutes = () => (
   <div>

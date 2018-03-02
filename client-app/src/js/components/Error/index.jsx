@@ -17,12 +17,8 @@ const mapDispatchToProps = dispatch => (
 );
 
 export class ErrorModal extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   close = () => {
-    const { clearErrors, modal, toggleModal } = this.props;
+    const modal = this.props;
 
     toggleModal({
       modal: 'errorModal',
@@ -84,8 +80,6 @@ ErrorModal.defaultProps = {
 ErrorModal.propTypes = {
   errors: PropTypes.object.isRequired,
   modal: PropTypes.object.isRequired,
-  toggleModal: PropTypes.func.isRequired,
-  clearErrors: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ErrorModal);

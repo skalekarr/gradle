@@ -2,13 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Row, Col, PageHeader, FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap';
+import { Row, Col, FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap';
 
 import { requestPolicySearch } from '../../actions/action-creators/policyLookUp';
 import { addErrors, toggleModal } from '../../actions/action-creators/app';
-
-import AppBody from '../../components/AppBody';
-import { NavigationBar } from '../../components/NavigationBar/index';
 
 const mapStateToProps = ({ policyLookUp }) => ({
   policyLookUp,
@@ -25,8 +22,6 @@ const mapDispatchToProps = dispatch => (
 
 class PolicyLookUp extends Component {
   showError = (message) => {
-    const { addErrors, toggleModal } = this.props;
-
     addErrors({
       message,
     });
@@ -38,7 +33,6 @@ class PolicyLookUp extends Component {
   }
 
   handleSearch = () => {
-    const { requestPolicySearch } = this.props;
     const policyNumber = this.textInput.value;
 
     if (policyNumber === undefined || policyNumber === '') {
@@ -58,11 +52,7 @@ class PolicyLookUp extends Component {
 
   render() {
     return (
-      <AppBody>
-        <PageHeader>
-                    Mutual of Omaha
-                </PageHeader>
-        <NavigationBar />
+      <div className="u-before4of12 u-size3of12 u-after5of12">
         <hr />
         <form>
           <FormGroup
@@ -74,7 +64,7 @@ class PolicyLookUp extends Component {
               </Col>
               <Col md={6} xs={6}>
                 <FormControl
-                  inputRef={input => this.textInput = input}
+                  inputRef={this.textInput}
                   type="text"
                 />
               </Col>
@@ -83,13 +73,13 @@ class PolicyLookUp extends Component {
         </form>
         <Row>
           <Col md={6} xs={6}>
-            <Button className="btn btn-primary " onClick={this.clearField}>Clear</Button>
+            <Button className="Button Button--outline" onClick={this.clearField}>Clear</Button>
           </Col>
           <Col md={6} xs={6}>
-            <Button className="btn btn-primary pull-right" onClick={this.handleSearch}>Submit</Button>
+            <Button className="Button" onClick={this.handleSearch}>Submit</Button>
           </Col>
         </Row>
-      </AppBody>
+      </div>
     );
   }
 }
