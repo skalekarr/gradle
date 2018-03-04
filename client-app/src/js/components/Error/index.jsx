@@ -16,17 +16,18 @@ const mapDispatchToProps = dispatch => (
   bindActionCreators({ toggleModal, clearErrors }, dispatch)
 );
 
-export class ErrorModal extends Component {
+class ErrorModal extends Component {
   close = () => {
+    const { clearErrors: clearingErrors, toggleModal: togglingModal } = this.props;
     const modal = this.props;
 
-    toggleModal({
+    togglingModal({
       modal: 'errorModal',
       active: false,
       properties: modal.properties,
     });
 
-    clearErrors();
+    clearingErrors();
   }
 
   render() {
@@ -60,7 +61,7 @@ export class ErrorModal extends Component {
           }
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.close} bsStyle="warning">Dismiss Error{errors.length > 1 && <span>s</span>}</Button>
+          <Button onClick={this.close} className="Button">Dismiss Error{errors.length > 1 && <span>s</span>}</Button>
         </Modal.Footer>
       </Modal>
     );
@@ -78,8 +79,10 @@ ErrorModal.defaultProps = {
 };
 
 ErrorModal.propTypes = {
+  clearErrors: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
   modal: PropTypes.object.isRequired,
+  toggleModal: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ErrorModal);

@@ -22,10 +22,12 @@ const mapDispatchToProps = dispatch => (
 
 class PolicyLookUp extends Component {
   showError = (message) => {
-    addErrors({
+    const { addErrors: addingErrors, toggleModal: togglingModal } = this.props;
+
+    addingErrors({
       message,
     });
-    toggleModal({
+    togglingModal({
       modal: 'errorModal',
       active: true,
       properties: { messages: message },
@@ -33,16 +35,16 @@ class PolicyLookUp extends Component {
   }
 
   handleSearch = () => {
+    const { requestPolicySearch: requestingPolicySearch } = this.props;
     const policyNumber = this.textInput.value;
+    const regExpPattern = new RegExp('[A-Z]{2}[0-9]{7}');
 
     if (policyNumber === undefined || policyNumber === '') {
       this.showError('Policy Number cannot be Empty. Please Enter a Valid Policy Number');
-    } else if (isNaN(policyNumber)) {
-      this.showError('Policy Number can be only Numbers. Please Enter a Valid Policy Number');
-    } else if (policyNumber.length !== 8) {
-      this.showError('Policy Number should be of 8 characters. Please Enter a Valid Policy Number');
+    } else if (!regExpPattern.test(policyNumber)) {
+      this.showError('Policy Number can be only 2 Aphabets and 7 Numbers. Please Enter a Valid Policy Number');
     } else {
-      requestPolicySearch(policyNumber);
+      requestingPolicySearch(policyNumber);
     }
   }
 
@@ -52,8 +54,7 @@ class PolicyLookUp extends Component {
 
   render() {
     return (
-      <div className="u-before4of12 u-size3of12 u-after5of12">
-        <hr />
+      <div className="u-before4of12 u-size3of12 u-after5of12" style={{ 'padding-top': '20px' }}>
         <form>
           <FormGroup
             controlId="policyLookUp"
@@ -64,7 +65,7 @@ class PolicyLookUp extends Component {
               </Col>
               <Col md={6} xs={6}>
                 <FormControl
-                  inputRef={this.textInput}
+                  inputRef={(input) => { this.textInput = input; return this.textInput; }}
                   type="text"
                 />
               </Col>
@@ -73,10 +74,10 @@ class PolicyLookUp extends Component {
         </form>
         <Row>
           <Col md={6} xs={6}>
-            <Button className="Button Button--outline" onClick={this.clearField}>Clear</Button>
+            <Button className="Button Button--outline" onClick={this.clearField}>Reset</Button>
           </Col>
           <Col md={6} xs={6}>
-            <Button className="Button" onClick={this.handleSearch}>Submit</Button>
+            <Button className="Button pull-right" onClick={this.handleSearch}>Submit</Button>
           </Col>
         </Row>
       </div>
@@ -85,7 +86,9 @@ class PolicyLookUp extends Component {
 }
 
 PolicyLookUp.propTypes = {
+  addErrors: PropTypes.func.isRequired,
   requestPolicySearch: PropTypes.func.isRequired,
+  toggleModal: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PolicyLookUp);

@@ -3,11 +3,14 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 
 import Header from '../header/header';
 import Footer from '../footer/footer';
+import ErrorModal from '../components/Error/index';
 import PolicyLookup from '../containers/PolicyLookUp/index';
 
+/* eslint-disble import/no-named-as-default */
 const RootRoutes = () => (
   <div>
     <Route path="/" component={Header} />
+    <ErrorModal />
     <Switch>
       <Route path="/" component={PolicyLookup} />
       <Redirect from="/" to="/PolicyLookup" />
