@@ -18,7 +18,7 @@ description = """Claims UI"""
 
 // For Bitbucket only - define tasks that will run whenever a pull request is made
 // Runs tests for both the client-app and the client-proxy
-project.tasks.create(name: 'pullRequestTests', dependsOn: [':client-proxy:test', ':client-app:jest'])
+project.tasks.create(name: 'pullRequestTests', dependsOn: [':server:test', ':client-app:jest'])
 project.tasks.create(name: 'pullRequestValidation', dependsOn: ['rewriteUnitTestReport', 'rewriteCoveragePaths', 'pullRequestTests']) {
     mustRunAfter 'pullRequestTests'
     finalizedBy 'pullRequestComments'
@@ -53,6 +53,6 @@ pipelineConfig {
 clean.delete << file('client-app/.jest')
 clean.delete << file('client-app/npm-debug.log')
 clean.delete << file("client-app/node_modules")
-clean.delete << file("client-proxy/src/main/webapp/assets")
-clean.delete << file("client-proxy/src/main/webapp/index.html")
+clean.delete << file("server/src/main/webapp/assets")
+clean.delete << file("server/src/main/webapp/index.html")
 

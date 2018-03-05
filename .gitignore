@@ -3,3 +3,4 @@ bin/
 .idea/
 .gradle/
 /.project
+server/src/main/webapp

@@ -6,8 +6,8 @@ module.exports = {
   stats: 'errors-only',
   output: {
     filename: '[name].[chunkhash].bundle.js',
-    publicPath: '/zuul-proxy/assets/',
-    path: resolve(__dirname, '../../client-proxy/src/main/webapp/assets'),
+    publicPath: '/assets/',
+    path: resolve(__dirname, '../../server/src/main/webapp/assets'),
   },
 
   entry: {

@@ -1,5 +1,5 @@
 {
-  "name": "moo-react-basic-starter",
+  "name": "ClaimsUIFrontEnd",
   "version": "0.1.0",
   "scripts": {
     "start": "node ./dev/server.js",

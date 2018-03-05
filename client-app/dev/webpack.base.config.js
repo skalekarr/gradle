@@ -17,7 +17,7 @@ module.exports = (env) => {
     recordsPath: join(__dirname, '..', '.webpack', 'chunk-manifest.json'),
 
     resolve: {
-      extensions: ['.js', '.jsx', '.less'],
+      extensions: ['.js', '.jsx', '.less', '.css'],
     },
 
     module: {
@@ -57,8 +57,11 @@ module.exports = (env) => {
           use: ExtractTextPlugin.extract({
             fallback: 'style-loader',
             use: [
-              { loader: 'css-loader' },
-              { loader: 'postcss-loader' },
+              { loader: 'css-loader', options: { 
+              	  importLoaders: 2 // 0 => no loaders (default); 1 => postcss-loader; 2 => postcss-loader, sass-loader 
+              	 } 
+              },
+              { loader: 'postcss-loader', options: { sourceMap: true } },
             ],
           }),
         },
