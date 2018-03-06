@@ -35,7 +35,7 @@ class ErrorModal extends Component {
     return (
       <Modal show={this.props.modal.active} onHide={this.close}>
         <Modal.Header>
-          <Modal.Title className="modal-title" style={{ display: 'inline-block' }}>Error{errors.length > 1 && <span>s</span>} Encountered</Modal.Title>
+          <Modal.Title className="modal-title" style={{ display: 'inline-block' }}>Policy Error{errors.length > 1 && <span>s</span>}</Modal.Title>
           <Button className="close" bsStyle="link" onClick={this.close} style={{ display: 'inline-block', float: 'right' }}>
             <span>&times;</span>
           </Button>
@@ -61,7 +61,7 @@ class ErrorModal extends Component {
           }
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={this.close} className="Button">Dismiss Error{errors.length > 1 && <span>s</span>}</Button>
+          <Button onClick={this.close} className="Button">OK</Button>
         </Modal.Footer>
       </Modal>
     );

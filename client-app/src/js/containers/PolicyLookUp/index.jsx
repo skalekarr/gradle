@@ -12,12 +12,12 @@ const mapStateToProps = ({ policyLookUp }) => ({
 });
 
 const mapDispatchToProps = dispatch => (
-    bindActionCreators({
-      addErrors,
-      toggleModal,
-      requestPolicySearch,
-    },
-        dispatch)
+  bindActionCreators({
+    addErrors,
+    toggleModal,
+    requestPolicySearch,
+  },
+    dispatch)
 );
 
 class PolicyLookUp extends Component {
@@ -37,12 +37,13 @@ class PolicyLookUp extends Component {
   handleSearch = () => {
     const { requestPolicySearch: requestingPolicySearch } = this.props;
     const policyNumber = this.textInput.value;
-    const regExpPattern = new RegExp('[A-Z]{2}[0-9]{7}');
+    const regExpPattern1 = new RegExp('[A-Z]{2}[0-9]{7}');
+    const regExpPattern2 = new RegExp('[A-Z]{2}[0-9]{7}[A-Z]{1}');
 
     if (policyNumber === undefined || policyNumber === '') {
       this.showError('Policy Number cannot be Empty. Please Enter a Valid Policy Number');
-    } else if (!regExpPattern.test(policyNumber)) {
-      this.showError('Policy Number can be only 2 Aphabets and 7 Numbers. Please Enter a Valid Policy Number');
+    } else if (!regExpPattern1.test(policyNumber) || !regExpPattern2.test(policyNumber)) {
+      this.showError('Please Enter a Valid Policy Number');
     } else {
       requestingPolicySearch(policyNumber);
     }
@@ -54,32 +55,32 @@ class PolicyLookUp extends Component {
 
   render() {
     return (
-      <div className="u-before4of12 u-size3of12 u-after5of12" style={{ 'padding-top': '20px' }}>
+      <div className="u-before4of12 u-size5of12 u-after5of12" style={{ 'padding-top': '20px' }}>
         <form>
           <FormGroup
             controlId="policyLookUp"
           >
             <Row>
               <Col md={6} xs={6}>
-                <ControlLabel>PolicyNumber</ControlLabel>
+                <ControlLabel>Policy Number</ControlLabel>
               </Col>
               <Col md={6} xs={6}>
                 <FormControl
                   inputRef={(input) => { this.textInput = input; return this.textInput; }}
                   type="text"
                 />
+                <Row style={{ 'padding-top': '20px' }}>
+                  <Col md={6} xs={6}>
+                    <Button className="Button Button--outline" onClick={this.clearField}>Reset</Button>
+                  </Col>
+                  <Col md={6} xs={6}>
+                    <Button className="Button pull-right" onClick={this.handleSearch}>Submit</Button>
+                  </Col>
+                </Row>
               </Col>
             </Row>
           </FormGroup>
         </form>
-        <Row>
-          <Col md={6} xs={6}>
-            <Button className="Button Button--outline" onClick={this.clearField}>Reset</Button>
-          </Col>
-          <Col md={6} xs={6}>
-            <Button className="Button pull-right" onClick={this.handleSearch}>Submit</Button>
-          </Col>
-        </Row>
       </div>
     );
   }
