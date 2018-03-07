@@ -3,8 +3,8 @@ description "Claims UI"
 apply plugin: 'com.moowork.node'
 
 node {
-  version = '6.10.2'
-  yarnVersion = '0.27.5'
+  version = '8.9.4'
+  yarnVersion = '1.5.1'
   download = true
   distBaseUrl = "$artifactoryUrl/node-dists/"
   nodeModulesDir = file("${project.projectDir}")
