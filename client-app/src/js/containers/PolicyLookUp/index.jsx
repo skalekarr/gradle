@@ -61,7 +61,7 @@ class PolicyLookUp extends Component {
             controlId="policyLookUp"
           >
             <Row>
-              <Col md={6} xs={6}>
+              <Col md={4} xs={4}>
                 <ControlLabel>Policy Number</ControlLabel>
               </Col>
               <Col md={6} xs={6}>
