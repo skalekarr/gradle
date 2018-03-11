@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Row, Col, FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap';
 
 import { requestPolicySearch } from '../../actions/action-creators/policyLookUp';
 import { addErrors, toggleModal } from '../../actions/action-creators/app';
@@ -37,12 +36,11 @@ class PolicyLookUp extends Component {
   handleSearch = () => {
     const { requestPolicySearch: requestingPolicySearch } = this.props;
     const policyNumber = this.textInput.value;
-    const regExpPattern1 = new RegExp('[A-Z]{2}[0-9]{7}');
-    const regExpPattern2 = new RegExp('[A-Z]{2}[0-9]{7}[A-Z]{1}');
+    const regExpPattern = new RegExp('(?:([A-Z]{2}[0-9]{7}[A-Z]{1})|([A-Z]{2}[0-9]{7}))');
 
     if (policyNumber === undefined || policyNumber === '') {
       this.showError('Policy Number cannot be Empty. Please Enter a Valid Policy Number');
-    } else if (!regExpPattern1.test(policyNumber) || !regExpPattern2.test(policyNumber)) {
+    } else if (!regExpPattern.test(policyNumber)) {
       this.showError('Please Enter a Valid Policy Number');
     } else {
       requestingPolicySearch(policyNumber);
@@ -55,31 +53,22 @@ class PolicyLookUp extends Component {
 
   render() {
     return (
-      <div className="u-before4of12 u-size5of12 u-after5of12" style={{ 'padding-top': '20px' }}>
+      <div className="u-before4of12 u-size5of12 u-after5of12 u-mT5">
         <form>
-          <FormGroup
-            controlId="policyLookUp"
-          >
-            <Row>
-              <Col md={4} xs={4}>
-                <ControlLabel>Policy Number</ControlLabel>
-              </Col>
-              <Col md={6} xs={6}>
-                <FormControl
-                  inputRef={(input) => { this.textInput = input; return this.textInput; }}
-                  type="text"
-                />
-                <Row style={{ 'padding-top': '20px' }}>
-                  <Col md={6} xs={6}>
-                    <Button className="Button Button--outline" onClick={this.clearField}>Reset</Button>
-                  </Col>
-                  <Col md={6} xs={6}>
-                    <Button className="Button pull-right" onClick={this.handleSearch}>Submit</Button>
-                  </Col>
-                </Row>
-              </Col>
-            </Row>
-          </FormGroup>
+          <div className="Grid">
+            <div className="Grid-cell u-size1of3">Policy Number</div>
+            <div className="Grid-cell u-size2of3">
+              <input
+                className="Input"
+                ref={(input) => { this.textInput = input; return this.textInput; }}
+                type="text"
+              />
+              <div className="u-mT5">
+                <button className="Button Button--outline" onClick={this.clearField}>Clear</button>
+                <button className="Button u-floatRight" onClick={this.handleSearch}>Submit</button>
+              </div>
+            </div>
+          </div>
         </form>
       </div>
     );

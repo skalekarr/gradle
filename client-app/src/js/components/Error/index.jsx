@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Button, Modal } from 'react-bootstrap';
-
 import { toggleModal, clearErrors } from '../../actions/action-creators/app';
 
 const mapStateToProps = ({ app: { modals: { errorModal: modal }, errors } }) => ({
@@ -31,39 +29,42 @@ class ErrorModal extends Component {
   }
 
   render() {
-    const { errors } = this.props;
-    return (
-      <Modal show={this.props.modal.active} onHide={this.close}>
-        <Modal.Header>
-          <Modal.Title className="modal-title" style={{ display: 'inline-block' }}>Policy Error{errors.length > 1 && <span>s</span>}</Modal.Title>
-          <Button className="close" bsStyle="link" onClick={this.close} style={{ display: 'inline-block', float: 'right' }}>
-            <span>&times;</span>
-          </Button>
-        </Modal.Header>
-        <Modal.Body>
-          { Object.keys(errors).map((error, i, arr) => (
+    const { errors, modal: { active } } = this.props;
+    const activeClass = active ? 'is-open' : '';
+    const errorOverlay = (<div className={`Overlay ${activeClass}`} id="overlayerror" role="dialog" data-aria-modal="true">
+      <div className="Overlay-body Container" style={{ width: '50%' }}>
+        <div>
+          <label htmlFor="policyerror">Policy Error{errors.length > 1 && <span>s</span>}</label>
+          <button className="Overlay-close u-floatRight" onClick={this.close} data-overlay-trigger="close" />
+        </div>
+        <hr className="u-mT5 u-mB5" />
+        <div>
+          {Object.keys(errors).map((error, i, arr) => (
             <div key={error}>
               {errors[error].error &&
-              <h4 id="default_error_text" className="zone-red-bold">{errors[error].error}</h4>
-                  }
+                <h4 id="default_error_text" className="zone-red-bold">{errors[error].error}</h4>
+              }
               {errors[error].message &&
-              <p>{errors[error].message}</p>
-                  }
+                <p>{errors[error].message}</p>
+              }
               {errors[error].exception &&
-              <p>{errors[error].exception}</p>
-                  }
+                <p>{errors[error].exception}</p>
+              }
               {(arr.length - 1) !== i &&
-              <hr />
-                  }
+                <hr />
+              }
             </div>
-              ),
-            )
+          ),
+          )
           }
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={this.close} className="Button">OK</Button>
-        </Modal.Footer>
-      </Modal>
+        </div>
+        <hr className="u-mT5 u-mB5" />
+        <button onClick={this.close} className="Button u-floatRight">OK</button>
+      </div>
+    </div>);
+
+    return (
+      active && errorOverlay
     );
   }
 }
