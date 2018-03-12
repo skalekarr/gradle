@@ -20,7 +20,15 @@ const mapDispatchToProps = dispatch => (
 );
 
 class PolicyLookUp extends Component {
-  showError = (message) => {
+  constructor(props) {
+    super(props);
+
+    this.showError = this.showError.bind(this);
+    this.handleSearch = this.handleSearch.bind(this);
+    this.clearField = this.clearField.bind(this);
+  }
+
+  showError(message) {
     const { addErrors: addingErrors, toggleModal: togglingModal } = this.props;
 
     addingErrors({
@@ -33,7 +41,7 @@ class PolicyLookUp extends Component {
     });
   }
 
-  handleSearch = () => {
+  handleSearch() {
     const { requestPolicySearch: requestingPolicySearch } = this.props;
     const policyNumber = this.textInput.value;
     const regExpPattern = new RegExp('(?:([A-Z]{2}[0-9]{7}[A-Z]{1})|([A-Z]{2}[0-9]{7}))');
@@ -47,7 +55,7 @@ class PolicyLookUp extends Component {
     }
   }
 
-  clearField = () => {
+  clearField() {
     this.textInput.value = '';
   }
 

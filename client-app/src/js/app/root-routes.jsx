@@ -1,5 +1,6 @@
 import React from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { Route, Switch } from 'react-router-dom';
 
 import Header from '../components/header/header';
 import Footer from '../components/footer/footer';
@@ -8,17 +9,21 @@ import PolicyLookup from '../containers/PolicyLookUp/index';
 import PolicySearchResult from '../containers/PolicySearchResult';
 
 /* eslint-disble import/no-named-as-default */
-const RootRoutes = () => (
+const RootRoutes = ({ match: { path }, location: { pathname } }) => (
   <div>
-    <Route path="/" component={Header} />
+    <Header />
     <ErrorModal />
     <Switch>
-      <Route path="/" component={PolicyLookup} />
-      <Route path="/search-result" component={PolicySearchResult} />
-      <Redirect from="/" to="/PolicyLookup" />
+      <Route exact path={path} component={PolicyLookup} />
+      <Route path={pathname} component={PolicySearchResult} />
     </Switch>
-    <Route path="/" component={Footer} />
+    <Footer />
   </div>
 );
+
+RootRoutes.propTypes = {
+  match: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+};
 
 export default RootRoutes;

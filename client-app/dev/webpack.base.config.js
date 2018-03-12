@@ -42,7 +42,13 @@ module.exports = (env) => {
             	  importLoaders: 2 // 0 => no loaders (default); 1 => postcss-loader; 2 => postcss-loader, sass-loader 
             	 } 
               },
-              { loader: 'postcss-loader', options: { sourceMap: true } },
+              {
+                loader: 'postcss-loader', options: {
+                  sourceMap: true, config: {
+                    path: resolve(__dirname, './postcss.config.js'),
+                  }
+                }
+              },
               { loader: 'resolve-url-loader' },
               { loader: 'less-loader',
                 options: {
@@ -61,7 +67,13 @@ module.exports = (env) => {
               	  importLoaders: 2 // 0 => no loaders (default); 1 => postcss-loader; 2 => postcss-loader, sass-loader 
               	 } 
               },
-              { loader: 'postcss-loader', options: { sourceMap: true } },
+              {
+                loader: 'postcss-loader', options: {
+                  sourceMap: true, config: {
+                    path: resolve(__dirname, './postcss.config.js'),
+                  }
+                }
+              },
             ],
           }),
         },
