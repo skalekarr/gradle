@@ -7,6 +7,8 @@ import Footer from '../components/footer/footer';
 import ErrorModal from '../components/Error/index';
 import PolicyLookup from '../containers/PolicyLookUp/index';
 import PolicySearchResult from '../containers/PolicySearchResult';
+import PolicySummary from '../containers/PolicySummary/index';
+import InterestCalc from '../containers/InterestCalc/index';
 
 /* eslint-disble import/no-named-as-default */
 const RootRoutes = ({ match: { path }, location: { pathname } }) => (
@@ -16,6 +18,8 @@ const RootRoutes = ({ match: { path }, location: { pathname } }) => (
     <Switch>
       <Route exact path={path} component={PolicyLookup} />
       <Route path={pathname} component={PolicySearchResult} />
+      <Route path={pathname} component={PolicySummary} />
+      <Route path={pathname} component={InterestCalc} />
     </Switch>
     <Footer />
   </div>

@@ -24,6 +24,18 @@ artifactoryPublish { skip = false }
 project.sourceCompatibility = 1.8
 project.targetCompatibility = 1.8
 
+allprojects {
+    plugins.withId('groovy') {
+        sourceSets {
+            main {
+                // Needed for clover plugin with gradle 4
+                output.classesDir = file("build/classes/groovy/main")
+            }
+        }
+    }
+}
+
+
 configurations {
     providedRuntime
 }
@@ -38,9 +50,9 @@ dependencies {
     compile "org.springframework.cloud:spring-cloud-starter-zuul:1.3.0.RELEASE"
     compile "io.jmnarloch:zuul-route-health-spring-cloud-starter:1.1.0"
 
-    if (!isLocalDev) {
+    //if (!isLocalDev) {
         providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
-    }
+    //}
 
     // AMUI Integration
 	compile('com.mutualofomaha.esc:AcctAuthMgmtSPFilter-starter:1.2.57')

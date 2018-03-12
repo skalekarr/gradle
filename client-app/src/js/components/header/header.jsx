@@ -18,7 +18,7 @@ const Header = () => (
           <nav className="SiteNav" role="menubar">
             <div className="SiteNav-item is-active">
               <a
-                href="/search"
+                href="/PolicyLookUp"
                 tabIndex="0"
                 className="SiteNav-itemLink"
                 aria-haspopup="true"
@@ -26,18 +26,6 @@ const Header = () => (
                 aria-labelledby=""
               >
                 <span className="SiteNav-itemLinkText" id="">Policy Search</span>
-              </a>
-            </div>
-            <div className="SiteNav-item">
-              <a
-                href="/"
-                tabIndex="0"
-                className="SiteNav-itemLink"
-                aria-haspopup="true"
-                aria-expanded="false"
-                aria-labelledby=""
-              >
-                <span className="SiteNav-itemLinkText" id="">12345678</span>
               </a>
             </div>
           </nav>
