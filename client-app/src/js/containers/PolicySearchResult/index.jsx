@@ -7,6 +7,7 @@ import Select from 'react-select';
 import moment from 'moment';
 
 /* eslint-disable */
+
 const mapStateToProps = ({ }) => ({
 
 });
@@ -31,8 +32,8 @@ class PolicySearchResult extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dod: moment(new Date()).format('DD/MM/YYYY'),
-      dop: moment(new Date()).format('DD/MM/YYYY'),
+      dod: moment(new Date()).format('MM/DD/YYYY'),
+      dop: moment(new Date()).format('MM/DD/YYYY'),
       showDateOfDeath: false,
       showDateOfProof: false,
       selectValue: 'new-south-wales'
@@ -56,12 +57,12 @@ class PolicySearchResult extends Component {
   }
 
   handleDOD(date) {
-    this.setState({ dod: moment(date).format('DD/MM/YYYY') })
+    this.setState({ dod: moment(date).format('MM/DD/YYYY') })
     this.setState({ showDateOfDeath: false });
   }
 
   handleDOP(date) {
-    this.setState({ dop: moment(date).format('DD/MM/YYYY') })
+    this.setState({ dop: moment(date).format('MM/DD/YYYY') })
     this.setState({ showDateOfProof: false });
   }
 
@@ -95,7 +96,7 @@ class PolicySearchResult extends Component {
           </div>
           <div className="Grid">
             <div className="Grid-cell u-size1of2">Date of Death:</div>
-            <div className="Grid-cell u-size1of2">
+            <div className="Grid-cell u-size1of2 u-mT1">
               <input type="text" value={this.state.dod} onFocus={() => { this.setState({ showDateOfDeath: true }) }} />
               {this.state.showDateOfDeath ?
                 <Calendar
@@ -107,7 +108,7 @@ class PolicySearchResult extends Component {
           </div>
           <div className="Grid">
             <div className="Grid-cell u-size1of2">Date of Proof:</div>
-            <div className="Grid-cell u-size1of2">
+            <div className="Grid-cell u-size1of2 u-mT1">
               <input type="text" value={this.state.dop} onFocus={() => { this.setState({ showDateOfProof: true }) }} />
               {this.state.showDateOfProof ?
                 <Calendar
@@ -117,7 +118,7 @@ class PolicySearchResult extends Component {
               }
             </div>
           </div>
-          <div className="Grid">
+          <div className="Grid u-pL4">
             <div>Select a Rider to Pay Today</div>
             <div className="radio">
               <label className="Radio">
@@ -145,7 +146,7 @@ class PolicySearchResult extends Component {
               </label>
             </div>
           </div>
-          <div className="Grid">
+          <div className="Grid u-pL4 u-mT1">
             <button className="Button">Back</button>
             <button className="Button u-floatRight">Next</button>
           </div>
