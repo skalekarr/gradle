@@ -11,15 +11,15 @@ import PolicySummary from '../containers/PolicySummary/index';
 import InterestCalc from '../containers/InterestCalc/index';
 
 /* eslint-disble import/no-named-as-default */
-const RootRoutes = ({ match: { path }, location: { pathname } }) => (
+const RootRoutes = () => (
   <div>
     <Header />
     <ErrorModal />
     <Switch>
-      <Route exact path={path} component={PolicyLookup} />
-      <Route path={pathname} component={PolicySearchResult} />
-      <Route path={pathname} component={PolicySummary} />
-      <Route path={pathname} component={InterestCalc} />
+      <Route exact path="/PolicyLookup" component={PolicyLookup} />
+      <Route path="/PolicySearchResult" component={PolicySearchResult} />
+      <Route path="/PolicySummary" component={PolicySummary} />
+      <Route path="/InterestCalc" component={InterestCalc} />
     </Switch>
     <Footer />
   </div>

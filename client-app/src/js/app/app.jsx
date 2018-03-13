@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
-import { Route } from 'react-router-dom';
 
 import RootRoutes from './root-routes';
 import { history } from './store.config';
@@ -13,7 +12,6 @@ import '../../styles/styles.less';
 const App = ({ store }) => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
-      <Route path="/" component={RootRoutes} />
     </ConnectedRouter>
   </Provider>
 );
