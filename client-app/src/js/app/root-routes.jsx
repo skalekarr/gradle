@@ -1,18 +1,27 @@
 import React from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
-import Header from '../header/header';
-import Footer from '../footer/footer';
-import PolicyLookup from '../PolicyLookup/PolicyLookup';
+import Header from '../components/header/header';
+import Footer from '../components/footer/footer';
+import ErrorModal from '../components/Error/index';
+import PolicyLookup from '../containers/PolicyLookUp/index';
+import PolicySearchResult from '../containers/PolicySearchResult';
+import PolicySummary from '../containers/PolicySummary/index';
+import InterestCalc from '../containers/InterestCalc/index';
 
+/* eslint-disble import/no-named-as-default */
 const RootRoutes = () => (
   <div>
-    <Route path="/" component={Header} />
+    <Header />
+    <ErrorModal />
     <Switch>
-      <Route path="/" component={PolicyLookup} />
+      <Route exact path="/PolicyLookup" component={PolicyLookup} />
+      <Route path="/PolicySearchResult" component={PolicySearchResult} />
+      <Route path="/PolicySummary" component={PolicySummary} />
+      <Route path="/InterestCalc" component={InterestCalc} />
       <Redirect from="/" to="/PolicyLookup" />
     </Switch>
-    <Route path="/" component={Footer} />
+    <Footer />
   </div>
 );
 

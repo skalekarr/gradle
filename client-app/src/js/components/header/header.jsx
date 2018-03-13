@@ -18,7 +18,7 @@ const Header = () => (
           <nav className="SiteNav" role="menubar">
             <div className="SiteNav-item is-active">
               <a
-                href="/search"
+                href="/PolicyLookUp"
                 tabIndex="0"
                 className="SiteNav-itemLink"
                 aria-haspopup="true"

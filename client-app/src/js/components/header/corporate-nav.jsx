@@ -8,6 +8,9 @@ const CorporateNav = () => (
         <div className="CorporateNav-logo">
           <Link to="/" />
         </div>
+        <div className="CorporateNav-menu">
+          <a href="/logout">Logout</a>
+        </div>
       </div>
     </div>
   </nav>

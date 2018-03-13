@@ -10,7 +10,7 @@ new WebpackDevServer(webpack(config), {
   historyApiFallback: true,
   proxy: {
     "/api/**": {
-      target: 'http://localhost:8081/zuul-proxy',
+      target: 'http://localhost:8081/',
       changeOrigin: true,
       secure: false,
     },
