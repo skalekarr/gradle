@@ -1,6 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 import Header from '../components/header/header';
 import Footer from '../components/footer/footer';
@@ -20,14 +19,10 @@ const RootRoutes = () => (
       <Route path="/PolicySearchResult" component={PolicySearchResult} />
       <Route path="/PolicySummary" component={PolicySummary} />
       <Route path="/InterestCalc" component={InterestCalc} />
+      <Redirect from="/" to="/PolicyLookup" />
     </Switch>
     <Footer />
   </div>
 );
-
-RootRoutes.propTypes = {
-  match: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired,
-};
 
 export default RootRoutes;

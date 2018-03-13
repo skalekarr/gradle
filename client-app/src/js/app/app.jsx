@@ -12,6 +12,7 @@ import '../../styles/styles.less';
 const App = ({ store }) => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
+      <RootRoutes />
     </ConnectedRouter>
   </Provider>
 );
