@@ -3,4 +3,3 @@
 /dev/.jest
 **/.DS_Store
 /.gradle
-src/node_modules
