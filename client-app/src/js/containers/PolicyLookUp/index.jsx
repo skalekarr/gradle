@@ -64,7 +64,7 @@ class PolicyLookUp extends Component {
       <div className="u-before4of12 u-size5of12 u-after5of12 u-mT5">
         <form>
           <div className="Grid">
-            <div className="Grid-cell u-size1of3">Policy Number</div>
+            <div className="Grid-cell u-pA0 u-size1of3">Policy Number</div>
             <div className="Grid-cell u-size2of3">
               <input
                 className="Input"

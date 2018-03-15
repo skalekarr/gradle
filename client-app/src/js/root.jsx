@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer as HotLoader } from 'react-hot-loader';
 
-import configureStore from './index.store';
+import configureStore from './store';
 import App from './app/app';
 
 const store = configureStore();

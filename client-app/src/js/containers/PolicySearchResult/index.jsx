@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Calendar from 'react-calendar';
-import Select from 'react-select';
 import moment from 'moment';
+import Select from '../../components/shared/Select';
 
 /* eslint-disable */
 
@@ -19,15 +19,6 @@ const mapDispatchToProps = dispatch => (
     dispatch)
 );
 
-const options = [{ value: 'australian-capital-territory', label: 'Australian Capital Territory', className: 'State-ACT' },
-{ value: 'new-south-wales', label: 'New South Wales', className: 'State-NSW' },
-{ value: 'victoria', label: 'Victoria', className: 'State-Vic' },
-{ value: 'queensland', label: 'Queensland', className: 'State-Qld' },
-{ value: 'western-australia', label: 'Western Australia', className: 'State-WA' },
-{ value: 'south-australia', label: 'South Australia', className: 'State-SA' },
-{ value: 'tasmania', label: 'Tasmania', className: 'State-Tas' },
-{ value: 'northern-territory', label: 'Northern Territory', className: 'State-NT' }];
-
 class PolicySearchResult extends Component {
   constructor(props) {
     super(props);
@@ -36,7 +27,7 @@ class PolicySearchResult extends Component {
       dop: moment(new Date()).format('MM/DD/YYYY'),
       showDateOfDeath: false,
       showDateOfProof: false,
-      selectValue: 'new-south-wales'
+      insuranceSelected: 'new-south-wales'
     }
     this.handleDOD = this.handleDOD.bind(this);
     this.handleDOP = this.handleDOP.bind(this);
@@ -52,75 +43,83 @@ class PolicySearchResult extends Component {
 
   updateValue(newValue) {
     this.setState({
-      selectValue: newValue,
+      insuranceSelected: newValue,
     });
   }
 
   handleDOD(date) {
-    this.setState({ dod: moment(date).format('MM/DD/YYYY') })
-    this.setState({ showDateOfDeath: false });
+    this.setState({ dod: moment(date).format('MM/DD/YYYY'), showDateOfDeath: false })
   }
 
   handleDOP(date) {
-    this.setState({ dop: moment(date).format('MM/DD/YYYY') })
-    this.setState({ showDateOfProof: false });
+    this.setState({ dop: moment(date).format('MM/DD/YYYY'), showDateOfProof: false })
   }
 
   render() {
     return (
-      <div className="u-before4of12 u-size5of12 u-after5of12" style={{ 'padding-top': '20px' }}>
+      <div className="u-before4of12 u-size6of12 u-after5of12" style={{ 'padding-top': '20px' }}>
         <div className="Container">
           <div className="Grid">
-            <div className="Grid-cell u-size1of2">Policy Number:</div>
-            <div className="Grid-cell u-size1of2">12345678</div>
+            <div className="Grid-cell u-size1of3">Policy Number:</div>
+            <div className="Grid-cell u-size2of3">12345678</div>
           </div>
           <div className="Grid">
-            <div className="Grid-cell u-size1of2">Paid to Date:</div>
-            <div className="Grid-cell u-size1of2">01/22/17</div>
+            <div className="Grid-cell u-size1of3">Paid to Date:</div>
+            <div className="Grid-cell u-size2of3">01/22/17</div>
           </div>
           <div className="Grid">
-            <div className="Grid-cell u-size1of2">Insurance:</div>
-            <div className="Grid-cell u-size1of2">
+            <div className="Grid-cell u-size1of3">Insured:</div>
+            <div className="Grid-cell u-size2of3">
               <Select
-                id="state-select"
-                ref={(ref) => { this.select = ref; }}
-                autoFocus
-                options={options}
-                simpleValue
-                name="selected-state"
-                value={this.state.selectValue}
+                options={[{ 'value': 'Value1', 'label': 'Label1' }, { 'value': 'Value2', 'label': 'Label2' }]}
+                value={this.state.insuranceSelected}
+                isMultiSelect={false}
                 onChange={this.updateValue}
-                searchable={this.state.searchable}
               />
             </div>
           </div>
           <div className="Grid">
-            <div className="Grid-cell u-size1of2">Date of Death:</div>
-            <div className="Grid-cell u-size1of2 u-mT1">
-              <input type="text" value={this.state.dod} onFocus={() => { this.setState({ showDateOfDeath: true }) }} />
+            <div className="Grid-cell u-size1of3">Date of Death:</div>
+            <div className="Grid-cell u-size2of3 u-mT1">
+              <div class="Field">
+                <input type="text"
+                  class="Input"
+                  value={this.state.dod}
+                  onFocus={() => { this.setState({ showDateOfDeath: true }) }} />
+              </div>
               {this.state.showDateOfDeath ?
-                <Calendar
-                  onChange={this.handleDOD}
-                  value={new Date(this.state.dod)}
-                /> : ''
+                <div className="Field">
+                  <Calendar
+                    onChange={this.handleDOD}
+                    value={new Date(this.state.dod)}
+                  />
+                </div> : ''
               }
             </div>
           </div>
           <div className="Grid">
-            <div className="Grid-cell u-size1of2">Date of Proof:</div>
-            <div className="Grid-cell u-size1of2 u-mT1">
-              <input type="text" value={this.state.dop} onFocus={() => { this.setState({ showDateOfProof: true }) }} />
+            <div className="Grid-cell u-size1of3">Date of Proof:</div>
+            <div className="Grid-cell u-size2of3 u-mT1">
+              <div class="Field">
+                <input type="text"
+                  class="Input"
+                  value={this.state.dop}
+                  onFocus={() => { this.setState({ showDateOfProof: true }) }} />
+              </div>
               {this.state.showDateOfProof ?
-                <Calendar
-                  onChange={this.handleDOP}
-                  value={new Date(this.state.dop)}
-                /> : ''
+                <div className="Field">
+                  <Calendar
+                    onChange={this.handleDOP}
+                    value={new Date(this.state.dop)}
+                  />
+                </div>
+                : ''
               }
             </div>
           </div>
           <div className="Grid u-pL4">
             <div>Select a Rider to Pay Today</div>
-            <div className="radio">
+            <div className="radio u-pL4">
               <label className="Radio">
                 <input type="radio" name="option" value="accidentalDeath"
                   /* checked={this.state.selectedOption === 'accidentalDeath'} */
@@ -132,7 +131,7 @@ class PolicySearchResult extends Component {
                   <span class="Radio-label">Accidental Death</span>
                 </div>              </label>
             </div>
-            <div className="radio">
+            <div className="radio u-pL4">
               <label className="Radio">
                 <input type="radio" name="option" value="heartStroke"
                   /* checked={this.state.selectedOption === 'heartStroke'} */
@@ -146,7 +145,7 @@ class PolicySearchResult extends Component {
               </label>
             </div>
           </div>
-          <div className="Grid u-pL4 u-mT1">
+          <div className="Grid u-pL4 u-mT4">
             <button className="Button">Back</button>
             <button className="Button u-floatRight">Next</button>
           </div>

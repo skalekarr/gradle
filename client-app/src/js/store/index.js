@@ -4,8 +4,8 @@ import { createLogger } from 'redux-logger';
 import createmiddlewareSaga from 'redux-saga';
 import createHistory from 'history/createBrowserHistory';
 
-import * as reducers from './reducers';
-import sagas from './sagas';
+import * as reducers from '../reducers';
+import sagas from '../sagas';
 
 export const history = createHistory();
 const mwSaga = createmiddlewareSaga();

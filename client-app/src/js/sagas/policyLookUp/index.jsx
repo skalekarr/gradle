@@ -14,17 +14,7 @@ export function* requestPolicyLookUp({ payload: policyNumber }) {
     const response = yield searchPolicy(policyNumber);
     const { status, data } = response;
 
-    if (status !== 200) {
-      yield put({
-        type: ADD_ERRORS,
-        error: {
-          error: 'No environment info returned.',
-          message: `The server encountered an error processing the request (environment). Please try again or contact your administrator to review error logs. (HTTP Status: ${status})`,
-        },
-      });
-      throw new Error();
-    }
-    if (!data.Success) {
+    if (status !== 200 || !data.Success) {
       yield put({
         type: ADD_ERRORS,
         error: {
