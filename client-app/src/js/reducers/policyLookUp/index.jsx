@@ -9,7 +9,7 @@ export default function reducer(state = initialState, action) {
     case ACTIONS.RECEIVE_POLICY_SEARCH:
       return {
         ...state,
-        policySerachResult: data,
+        policySearchResult: data,
       };
 
     default:
