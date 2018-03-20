@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 /* import PropTypes from 'prop-types'; */
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Calendar from 'react-calendar';
 import moment from 'moment';
 import Select from '../../components/shared/Select';
+import CustomCalendar from '../../components/shared/Calendar';
 
 /* eslint-disable */
 
@@ -23,10 +23,6 @@ class PolicySearchResult extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      dod: moment(new Date()).format('MM/DD/YYYY'),
-      dop: moment(new Date()).format('MM/DD/YYYY'),
-      showDateOfDeath: false,
-      showDateOfProof: false,
       insuranceSelected: 'new-south-wales'
     }
     this.handleDOD = this.handleDOD.bind(this);
@@ -48,11 +44,11 @@ class PolicySearchResult extends Component {
   }
 
   handleDOD(date) {
-    this.setState({ dod: moment(date).format('MM/DD/YYYY'), showDateOfDeath: false })
+    this.setState({ dod: moment(date).format('MM/DD/YYYY')});
   }
 
   handleDOP(date) {
-    this.setState({ dop: moment(date).format('MM/DD/YYYY'), showDateOfProof: false })
+    this.setState({ dop: moment(date).format('MM/DD/YYYY')});
   }
 
   render() {
@@ -81,40 +77,19 @@ class PolicySearchResult extends Component {
           <div className="Grid">
             <div className="Grid-cell u-size1of3">Date of Death:</div>
             <div className="Grid-cell u-size2of3 u-mT1">
-              <div class="Field">
-                <input type="text"
-                  class="Input"
-                  value={this.state.dod}
-                  onFocus={() => { this.setState({ showDateOfDeath: true }) }} />
-              </div>
-              {this.state.showDateOfDeath ?
-                <div className="Field">
-                  <Calendar
-                    onChange={this.handleDOD}
-                    value={new Date(this.state.dod)}
-                  />
-                </div> : ''
-              }
+              <CustomCalendar
+                handleDateChange={date => this.handleDOD(date)}
+                selectedDate={moment(this.state.dod).format('MM/DD/YYYY')}
+              />
             </div>
           </div>
           <div className="Grid">
             <div className="Grid-cell u-size1of3">Date of Proof:</div>
             <div className="Grid-cell u-size2of3 u-mT1">
-              <div class="Field">
-                <input type="text"
-                  class="Input"
-                  value={this.state.dop}
-                  onFocus={() => { this.setState({ showDateOfProof: true }) }} />
-              </div>
-              {this.state.showDateOfProof ?
-                <div className="Field">
-                  <Calendar
-                    onChange={this.handleDOP}
-                    value={new Date(this.state.dop)}
-                  />
-                </div>
-                : ''
-              }
+              <CustomCalendar
+                handleDateChange={date => this.handleDOP(date)}
+                selectedDate={moment(this.state.dop).format('MM/DD/YYYY')}
+              />
             </div>
           </div>
           <div className="Grid u-pL4">
